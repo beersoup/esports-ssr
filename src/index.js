@@ -1,13 +1,52 @@
-const express = require('express');
-const React = require('react');
-const renderToString = require('react-dom/server').renderToString;
-const Home = require('./client/components/Home').default;
+import 'babel-polyfill';
+import express from 'express';
+import { matchRoutes } from 'react-router-config';
+import Routes from './client/Routes';
+import renderer from './helpers/renderer';
+import createStore from './helpers/createStore';
+import proxy from 'express-http-proxy';
+
+
 const app = express();
 
-app.get('/', (req, res) => {
-    const content = renderToString(<Home />);
+// If any request that has /api will attach proxy on it
+// proxyReqOptDecorator option no need for others app
+app.use('/api', proxy('http://react-ssr-api.herokuapp.com', {
+    proxyReqOptDecorator(opts) {
+        opts.headers['x-forwarded-host'] = 'localhost:3000';
+        return opts;
+    }
+}))
+app.use(express.static('public'));
 
-    res.send(content);
+app.get('*', (req, res) => {
+    const store = createStore(req);
+
+    const promises = matchRoutes(Routes, req.path).map(({ route }) => {
+        return route.loadData ? route.loadData(store) : null;
+    }).map(promise => {
+        if(promise) {
+            return new Promise((resolve, reject) => {
+                promise.then(resolve).catch(resolve);
+            })
+        }
+    });
+
+    Promise.all(promises).then(() => {
+        const context = {};
+        const content = renderer(req, store, context);
+
+        // If this logic is not work try click disable cache in network console in browser
+        if(context.url) {
+            return res.redirect(301, context.url);
+        }
+
+        if(context.notFound) {
+            res.status(404);
+        }
+        res.send(content);
+    });
+
 });
 app.listen(3000, () => {
     console.log('Listening to port 3000');
