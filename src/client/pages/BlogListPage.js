@@ -26,8 +26,10 @@ class BlogListPage extends Component {
 
         return (
             <div>
-                <h3>Blog List Page</h3>
+                <h3>Blog Esports List Page</h3>
                 <ul>{this.renderUsers()}</ul>
+                <img src="http://images.ctfassets.net/tsweppzq6ch3/5BoKTN4sfKIcQmikgu8CKk/6011f53c9ae452383c9a68bc45e78ec9/purple-dota.jpg" />
+                <img src="img/new-stream-sources.png" />
             </div>
         );
     }
