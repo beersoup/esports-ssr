@@ -42,9 +42,5 @@
     "webpack-dev-server": "2.8.2",
     "webpack-merge": "4.1.0",
     "webpack-node-externals": "1.6.0"
-  },
-  "devDependencies": {
-    "file-loader": "^1.1.11",
-    "url-loader": "^1.0.1"
   }
 }
