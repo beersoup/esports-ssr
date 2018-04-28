@@ -1,11 +1,10 @@
 import React from 'react';
-import HomePage from './pages/HomePage';
 import App from './App';
-import UsersListPage from './pages/UsersListPage';
 import NotFoundPage from './pages/NotFoundPage';
-import AdminsListPage from './pages/AdminsListPage';
-import BlogListPage from './pages/BlogListPage';
-import BlogPage from './pages/BlogPage';
+import HomePage from './pages/HomePage';
+import BlogDetailPage from './pages/BlogDetailPage';
+import CategoryPage from './pages/CategoryPage';
+
 
 export default [
 
@@ -13,26 +12,19 @@ export default [
         ...App,
         routes: [
             {
-                ...HomePage,
+                ...HomePage, // If Page without Redux connection use component: HomePage instead of ...HomePage
                 path: '/',
                 exact: true
             },
             {
-                ...AdminsListPage,
-                path: '/admins'
-            },
-            {
-                ...UsersListPage,
-                path: '/users'
-            },
-            {
-                ...BlogListPage,
-                path: '/blog',
+                ...BlogDetailPage,
+                path: '/post/:slug',
                 exact: true
             },
             {
-                ...BlogPage,
-                path: '/blog/:id'
+                ...CategoryPage,
+                path: '/category/:category',
+                exact: true
             },
             {
                 ...NotFoundPage

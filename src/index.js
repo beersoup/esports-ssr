@@ -17,6 +17,8 @@ app.use('/api', proxy('http://react-ssr-api.herokuapp.com', {
         return opts;
     }
 }))
+
+
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {

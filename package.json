@@ -42,5 +42,10 @@
     "webpack-dev-server": "2.8.2",
     "webpack-merge": "4.1.0",
     "webpack-node-externals": "1.6.0"
+  },
+  "devDependencies": {
+    "moment": "^2.22.1",
+    "react-markdown-renderer": "^1.4.0",
+    "react-media": "^1.8.0"
   }
 }
