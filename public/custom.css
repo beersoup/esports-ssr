@@ -88,17 +88,15 @@ a, a:link, a:visited, a:hover, a:active {
     background: 0 0 !important;
 }
 .banner1 {
-    width: 770px;
+    width: 100%;
     height: 500px;
     object-fit: cover;
 }
 .banner2 {
-    width: 396px;
     height: 248px;
     object-fit: cover;
 }
 .banner3 {
-    width: 396px;
     height: 248px;
     object-fit: cover;
 }
@@ -156,6 +154,29 @@ header {
 }
 .author.category-page h1, .author.category-page h2, .author.category-page h3 {
     font-size: 1rem;
+}
+.container.banner-big {
+    max-width: 100%;
+}
+.slider-section2 {
+    background: black;
+}
+.link-banner-filter {
+    position: relative;
+    display: block;
+}
+.link-banner-filter:after {
+    position: absolute;
+    content:"";
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.8) 100%);
+}
+.entry-content {
+    z-index: 10;
 }
 @media (max-width: 1199px) {
     .post-list-wrapper>div:nth-of-type(3n+1) {

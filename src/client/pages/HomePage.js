@@ -69,9 +69,7 @@ class HomePage extends Component {
     render() {
         return (
             <div className="container-fluid no-left-padding no-right-padding">
-                <main className="site-main">
                 <BannersTopHome fetchHeroBanner={this.props.state.fetchHeroBanner}/>
-                </main>
                 <div className="container-fluid no-left-padding no-right-padding page-content">
                     <div className="container">
                         <div className="row">

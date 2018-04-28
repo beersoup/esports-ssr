@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CallActionButton from './CallActionButton';
 
 import {TRACK_URL} from '../config';
 
@@ -35,8 +36,9 @@ class BannersTopHome extends Component {
             })
         }
         return (
-            <div className="container-fluid no-left-padding no-right-padding slider-section slider-section2">
-                <div className="container">
+            <div className="container-fluid no-left-padding no-right-padding slider-section slider-section2"
+            style={{ paddingTop: 0 }}>
+                <div className="container banner-big" style={{ margin: 0, padding: 0 }}>
                     <div id="slider-carousel-2" className="carousel slide" data-ride="carousel">
                         <div className="carousel-inner" role="listbox">
                             <div className="carousel-item active">
@@ -45,17 +47,23 @@ class BannersTopHome extends Component {
                                         <div className="post-box">
                                             <a href={TRACK_URL} target="_blank"
                                                rel="noopener noreferrer"
-                                               title={bannerTitle2}><img src={bannerImageUrl2} className="banner1" alt="Slide" /></a>
+                                               title={bannerTitle2}
+                                            className="link-banner-filter">
+                                                <img src={bannerImageUrl2} className="banner1" alt="Slide" />
+                                            </a>
                                             <div className="entry-content">
                                                 <span className="post-category"><a href={TRACK_URL} target="_blank"
                                                                                    rel="noopener noreferrer"
-                                                                                   title={bannerTitle2}>{bannerTitle2}</a></span>
+                                                                                   title={bannerTitle2}>{bannerTitle2}</a>
+                                                </span>
                                                 <h3><a href={TRACK_URL}
                                                        target="_blank" rel="noopener noreferrer"
-                                                       title={bannerTitle2}>{bannerText2}</a></h3>
-                                                <a href={TRACK_URL} target="_blank"
-                                                   rel="noopener noreferrer"
-                                                   title="Read More">{bannerButton2}</a>
+                                                       title={bannerTitle2}>{bannerText2}</a>
+                                                </h3>
+                                                <CallActionButton
+                                                    href={TRACK_URL}
+                                                   className="btn btn-warning btn-lg"
+                                                    buttonText={bannerButton2} />
                                             </div>
                                         </div>
                                     </div>
@@ -73,15 +81,17 @@ class BannersTopHome extends Component {
                                                 <h3><a href={TRACK_URL} target="_blank"
                                                        rel="noopener noreferrer"
                                                        title={bannerTitle1}>{bannerText1}</a></h3>
-                                                <a href={TRACK_URL} target="_blank"
-                                                   rel="noopener noreferrer"
-                                                   title="Read More">{bannerButton1}</a>
+                                                <CallActionButton
+                                                    href={TRACK_URL}
+                                                    className="btn btn-warning"
+                                                    buttonText={bannerButton1} />
                                             </div>
                                         </div>
                                         <div className="post-box">
                                             <a href={TRACK_URL} target="_blank"
                                                rel="noopener noreferrer"
-                                               title={bannerTitle3}><img src={bannerImageUrl3} className="banner3" alt="Slide" /></a>
+                                               title={bannerTitle3}
+                                               className="link-banner-filter"><img src={bannerImageUrl3} className="banner3" alt="Slide" /></a>
                                             <div className="entry-content">
                                                 <span className="post-category"><a href={TRACK_URL} target="_blank"
                                                                                    rel="noopener noreferrer"
@@ -90,10 +100,10 @@ class BannersTopHome extends Component {
                                                        target="_blank"
                                                        rel="noopener noreferrer"
                                                        title={bannerTitle3}>{bannerText3}</a></h3>
-                                                <a href={TRACK_URL}
-                                                   target="_blank"
-                                                   rel="noopener noreferrer"
-                                                   title="Read More">{bannerButton3}</a>
+                                                <CallActionButton
+                                                    href={TRACK_URL}
+                                                    className="btn btn-warning"
+                                                    buttonText={bannerButton3} />
                                             </div>
                                         </div>
                                     </div>
