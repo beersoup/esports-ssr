@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import FetchBlogsImages from '../components/FetchBlogsImages';
 import TextBlogTitle from "../components/TextBlogTitle";
+import ImageDynamic3 from '../components/ImageDynamic3';
 
 
 
@@ -36,11 +37,11 @@ class HomePage extends Component {
                             <div className="type-post">
                                 <div className="entry-cover post-list-horizontal">
                                     <div className="post-meta">
-                                        <span className="byline">by <a href="/">{blog.fields.author}</a></span>
-                                        <span className="post-date"><a href="/">{dateCreated}</a></span>
+                                        <span className="byline">by <Link to="/">{blog.fields.author}&nbsp;&nbsp;</Link></span>
+                                        <span className="post-date" style={{ display:'block', float:'left'}}><Link to="/" style={{ display:'block'}}>{dateCreated}</Link></span>
                                     </div>
 
-                                    <Link to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImages}
+                                    <Link className="link-post-img" to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImages}
                                                  imageId={imageId}
                                                    alt={blog.fields.title}
                                     /></Link>
@@ -81,7 +82,7 @@ class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-
+                <ImageDynamic3 />
             </div>
         );
     }

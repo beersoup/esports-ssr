@@ -6,21 +6,6 @@ import FetchBlogsImages from '../components/FetchBlogsImages';
 
 class PostSide extends Component {
 
-    renderImagePostSide(imageId, title, slug) {
-            return this.props.fetchBlogsImages.map((asset, i) => {
-                const slugPost =  `/post/${slug}`
-                if(imageId === asset.sys.id) {
-                    return <Link key={i} to={slugPost} title="Popular Posts" className="link-to-post">
-                        <i><img src={asset.fields.file.url}
-                                className="wp-post-image" alt={title}
-                                width="100" height="80" /></i>
-                        </Link>
-                }else {
-                    return <div key={i} />
-                }
-
-            })
-    }
     renderPostSide() {
 
         return this.props.fetchBlogsDetails.map((blog, i) => {

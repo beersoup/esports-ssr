@@ -7,7 +7,14 @@ import moment from 'moment';
 import PostSide from '../components/PostSide';
 import CategorySide from '../components/CategorySide';
 import FetchBlogsImages from '../components/FetchBlogsImages';
+import ImageDynamic2 from '../components/ImageDynamic2';
+import BannerSide from '../components/BannerSide';
+import ImageDynamic3 from '../components/ImageDynamic3';
 
+
+const bannerUrl2 = '/img/game_master_345.jpg';
+const bannerUrl3 = '/img/2_eoru_free_345.jpg';
+const bannerUrl4 = '/img/master-game-336.jpg';
 
 class BlogDetailPage extends Component {
     componentDidMount() {
@@ -66,17 +73,21 @@ class BlogDetailPage extends Component {
                 {this.head()}
                 <div className="main-container">
                     <main className="site-main">
+                        <ImageDynamic2 />
                         <div className="container-fluid no-left-padding no-right-padding page-content blog-single padding-page-content">
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-xl-8 col-lg-8 col-md-6 col-12 content-area">
+                                    <div className="col-xl-8 col-lg-8 col-md-6 col-12 content-area md-responsive">
                                         {this.renderBlogDetail()}
                                     </div>
                                     <div className="col-lg-4 col-md-6 col-12 widget-area">
+                                        <BannerSide imageUrl={bannerUrl2} />
                                         <PostSide postSlug={this.props.match.params.slug}
                                                   fetchBlogsDetails={this.props.fetchBlogsDetails}
                                                   fetchBlogsImages={this.props.fetchBlogsImages}/>
+                                        <BannerSide imageUrl={bannerUrl3} />
                                         <CategorySide fetchCategories={this.props.fetchCategories}/>
+                                        <BannerSide imageUrl={bannerUrl4} />
                                     </div>
                                     <div className="col-lg-4 col-md-6 col-12 widget-area">
 
@@ -84,6 +95,7 @@ class BlogDetailPage extends Component {
                                 </div>
                             </div>
                         </div>
+                        <ImageDynamic3 />
                     </main>
                 </div>
             </div>

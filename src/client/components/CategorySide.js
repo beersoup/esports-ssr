@@ -3,20 +3,11 @@ import { Link } from 'react-router-dom';
 
 
 class CategorySide extends Component {
+
     renderCategorySide() {
-        let categoryNotDupArr = [];
-
-        for (var i = 0; i < this.props.fetchCategories.length; i++) {
-            if (this.props.fetchCategories.indexOf(this.props.fetchCategories[i]) !== i &&
-                this.props.fetchCategories.indexOf(this.props.fetchCategories[i]) !== -1) {
-
-            } else {
-                categoryNotDupArr.push(this.props.fetchCategories[i])
-            }
-        }
 
         let result  = []
-        categoryNotDupArr.map((category, i) => {
+        this.props.fetchCategories.map((category, i) => {
             if(category != null || category != undefined) {
                 let categorySlug = category.toLocaleLowerCase()
                 categorySlug = categorySlug.split(' ').join('-')
@@ -24,12 +15,13 @@ class CategorySide extends Component {
                     <li className="category-tab-list">{category}</li>
                 </Link>)
             }else {
-                return result.push(<div key={i} style={{ display:'none'}}/>)
+                return result.push(<div key={i} style={{ display:'none' }}/>)
             }
         })
 
         return result
     }
+
     render() {
 
         return (

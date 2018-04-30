@@ -1055,8 +1055,8 @@ h1,h2,h3,h4,h5,h6,p,a,li,span {
 
 /* - Page Content */
 .page-content {
-	padding-top: 80px;
-	padding-bottom: 80px;
+	padding-top: 6vw;
+	padding-bottom: 2vw;
 }
 
 /* + Shortcodes */
@@ -1614,8 +1614,8 @@ div.type-post {
 	border-radius: 12px;
 	transition: all 0.3s;
 }
-.type-post .entry-cover .post-meta ~ a::before {
-	//background-color: rgba(0,0,0,0.35);
+.type-post .entry-cover .post-meta ~ a.link-post-img::before {
+	background-color: rgba(0,0,0,0.35);
 	content: "";
 	position: absolute;
 	left: 0;
@@ -1633,14 +1633,14 @@ div.type-post {
 }
 .type-post .entry-cover .post-meta {
 	position: absolute;
-	left: 25px;
+	left: 15px;
 	right: 25px;
-	bottom: 10px;
 	z-index: 1;
+	top: 210px;
 }
 .type-post .entry-cover .post-meta > span {
 	color: #fff;
-	font-size: 14px;
+	font-size: 9px;
 	font-weight: 600;
 	opacity: 0;
 	animation-duration: 0.5s;
@@ -4961,7 +4961,9 @@ article[class*="type-"] .entry-content .entry-footer .social > li  > a:hover {
 
 /* - min-width: 992 to max-width: 1199 */
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-	
+	.type-post .entry-cover .post-meta {
+		font-size: 11px;
+	}
 }
 
 /* - max-width: 991 */

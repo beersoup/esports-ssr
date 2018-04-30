@@ -3,14 +3,19 @@ import { connect } from 'react-redux';
 import { fetchBlogs } from '../actions';
 import moment from 'moment';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FetchBlogsImages from '../components/FetchBlogsImages';
 import MarkdownRenderer from 'react-markdown-renderer';
 import PostSide from '../components/PostSide';
 import CategorySide from '../components/CategorySide';
-import NotFoundPage from "./NotFoundPage";
+import BannerSide from '../components/BannerSide';
+import ImageDynamic3 from '../components/ImageDynamic3';
+import BannerTop from '../components/BannerTop';
 
 
+const bannerUrl4 = '/img/master-game-336.jpg';
+const bannerUrl3 = '/img/2_eoru_free_345.jpg';
+const slideImg = '/img/pixel-bet-image-slider3.jpg';
 
 class CategoryPage extends Component {
     componentDidMount() {
@@ -87,26 +92,51 @@ class CategoryPage extends Component {
         }
 
     }
+    renderCategoryTitle() {
+
+       return this.props.fetchCategories.map((category, i) => {
+
+            if(category != null || category != undefined) {
+
+                let categorySlug = category.toLocaleLowerCase()
+                categorySlug = categorySlug.split(' ').join('-')
+
+                if(categorySlug === this.props.match.params.category) {
+                    return <BannerTop key={i} titleSec2={category} imageBg={slideImg} />
+                }
+            }
+
+           if(category == null && this.props.match.params.category === 'others') {
+               return <BannerTop key={i} titleSec2="Others" imageBg={slideImg} />
+           }
+        })
+
+    }
 
     render() {
         return (
             <div className="main-container">
                 <main className="site-main">
-                    <div className="container-fluid no-left-padding no-right-padding page-content blog-single">
+                    {this.renderCategoryTitle()}
+                    <div className="container-fluid no-left-padding no-right-padding page-content blog-single"
+                    style={{ clear:'both'}}>
                         <div className="container">
                             <div className="row">
-                                <div className="col-xl-8 col-lg-8 col-md-6 col-12 content-area">
+                                <div className="col-xl-8 col-lg-8 col-md-6 col-12 content-area md-responsive">
                                     {this.renderBlogDetail()}
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-12 widget-area">
+                                    <BannerSide imageUrl={bannerUrl4} />
                                     <PostSide postSlug={this.props.match.params.slug}
                                               fetchBlogsDetails={this.props.fetchBlogsDetails}
                                               fetchBlogsImages={this.props.fetchBlogsImages}/>
+                                    <BannerSide imageUrl={bannerUrl3} />
                                     <CategorySide fetchCategories={this.props.fetchCategories}/>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <ImageDynamic3 />
                 </main>
             </div>
         )

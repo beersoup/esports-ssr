@@ -62,7 +62,7 @@ class BannersTopHome extends Component {
                                                 </h3>
                                                 <CallActionButton
                                                     href={TRACK_URL}
-                                                   className="btn btn-warning btn-lg"
+                                                   className="btn btn-warning"
                                                     buttonText={bannerButton2} />
                                             </div>
                                         </div>

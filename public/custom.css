@@ -20,7 +20,7 @@ body {
     color:#aaa !important;
 }
 .img-slide {
-    object-fit:cover;
+    object-fit:none;
     width:100%;
     height:50vh;
 }
@@ -178,6 +178,9 @@ header {
 .entry-content {
     z-index: 10;
 }
+.entry-cover.post-list-horizontal:hover + a.thumb-link-post {
+    background-color: #131313;
+}
 @media (max-width: 1199px) {
     .post-list-wrapper>div:nth-of-type(3n+1) {
         clear:none;
@@ -241,6 +244,12 @@ header {
         display: none;
     }
 
+}
+@media (max-width: 992px) {
+    .md-responsive {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
 }
 @media (max-width: 767px) {
     .post-list {

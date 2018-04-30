@@ -3,19 +3,9 @@ import { Link } from 'react-router-dom';
 
 class Nav extends Component {
     renderSubmenu() {
-        let categoryNotDupArr = [];
-
-        for (var i = 0; i < this.props.fetchCategories.length; i++) {
-            if (this.props.fetchCategories.indexOf(this.props.fetchCategories[i]) !== i &&
-                this.props.fetchCategories.indexOf(this.props.fetchCategories[i]) !== -1) {
-
-            } else {
-                categoryNotDupArr.push(this.props.fetchCategories[i])
-            }
-        }
 
         let result  = []
-        categoryNotDupArr.map((category, i) => {
+        this.props.fetchCategories.map((category, i) => {
 
             if(category != null || category != undefined) {
                 let categorySlug = category.toLocaleLowerCase()
@@ -59,7 +49,7 @@ class Nav extends Component {
                         </li>
                     </ul>
                     <span className="navbar-text">
-                        Navbar text with an inline element
+                        Esports News and Articles
                     </span>
                 </div>
             </nav>
