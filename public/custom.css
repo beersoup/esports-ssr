@@ -181,6 +181,29 @@ header {
 .entry-cover.post-list-horizontal:hover + a.thumb-link-post {
     background-color: #131313;
 }
+.pagination-lg .page-item .page-link, .pagination-lg .page-item:first-child .page-link, .pagination-lg .page-item:last-child .page-link{
+    border-radius: 50%;
+}
+.page-link {
+    color: #ffbb00;
+}
+.page-link:hover {
+    color: #000;
+}
+.pagination {
+    align-items: center;
+    justify-content: center;
+}
+.page-item {
+    margin: .25vw;
+}
+.page-item.active .page-link {
+    background-color: #ffbb00;
+    border: none;
+}
+.page-item.active.disabled a {
+    color: #fff;
+}
 @media (max-width: 1199px) {
     .post-list-wrapper>div:nth-of-type(3n+1) {
         clear:none;

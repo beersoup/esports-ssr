@@ -6,24 +6,57 @@ import { fetchBlogs, fetchHeroBanner } from "../actions";
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
+
 import FetchBlogsImages from '../components/FetchBlogsImages';
 import TextBlogTitle from "../components/TextBlogTitle";
 import ImageDynamic3 from '../components/ImageDynamic3';
 
+const limitPostForOnePage = 9;
 
 
 class HomePage extends Component {
+
+  /*  constructor(props) {
+        super(props);
+        this.state = {
+            params: null
+        };
+    } */
+
     componentDidMount() {
         this.props.fetchBlogs();
         this.props.fetchHeroBanner();
+
+      /*  if(this.props.match.params.page === undefined) {
+            this.setState({ params: 1 })
+        }else {
+            this.setState({ params: this.props.match.params.page })
+        } */
+
     }
+
+   /* componentDidUpdate(prevProps) {
+
+      if (this.props.match.params.page !== prevProps.match.params.page) {
+          if(this.props.match.params.page === undefined) {
+              this.setState({ params: 1 })
+          }else {
+              this.setState({ params: this.props.match.params.page })
+          }
+
+       }
+
+    } */
+
+
     renderBlogItem() {
         if(this.props.state.fetchBlogsDetails !== undefined) {
             return this.props.state.fetchBlogsDetails.map((blog, i) => {
+
                 if(blog.sys.contentType.sys.id === "article") {
                     if(blog.fields.hasOwnProperty('featuredImage')) {
                         const dateCreated = moment(blog.sys.createdAt).format("MMM DD, YYYY")
-                        const slugPost =  `/post/${blog.fields.slug}`
+                        const slugPost = `/post/${blog.fields.slug}`
                         const imageId = blog.fields.featuredImage.sys.id;
                         const body = blog.fields.body;
                         let category = blog.fields.category ? blog.fields.category : 'OTHERS'
@@ -67,7 +100,13 @@ class HomePage extends Component {
         }
 
     }
+
     render() {
+     /*   let pageCount;
+        if(this.props.state.fetchBlogsDetails.length !== undefined) {
+            pageCount = Math.ceil(this.props.state.fetchBlogsDetails.length / limitPostForOnePage);
+        } */
+
         return (
             <div className="container-fluid no-left-padding no-right-padding">
                 <BannersTopHome fetchHeroBanner={this.props.state.fetchHeroBanner}/>
@@ -81,6 +120,9 @@ class HomePage extends Component {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="container-fluid no-padding page-content" style={{ marginBottom: '2rem'}}>
+                    {/*  <Pagination pageCount={pageCount} paramsPage={this.props.match.params.page}/> */}
                 </div>
                 <ImageDynamic3 />
             </div>
@@ -101,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchHeroBanner:fetchHeroBanner
     }, dispatch)
 }
+
 
 function loadData(store) {
     return store.dispatch(fetchBlogs(), fetchHeroBanner());

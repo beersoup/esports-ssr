@@ -4,19 +4,9 @@ import { matchRoutes } from 'react-router-config';
 import Routes from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
-import proxy from 'express-http-proxy';
 
 
 const app = express();
-
-// If any request that has /api will attach proxy on it
-// proxyReqOptDecorator option no need for others app
-app.use('/api', proxy('http://react-ssr-api.herokuapp.com', {
-    proxyReqOptDecorator(opts) {
-        opts.headers['x-forwarded-host'] = 'localhost:3000';
-        return opts;
-    }
-}))
 
 
 app.use(express.static('public'));
@@ -24,15 +14,19 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore(req);
 
-    const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-        return route.loadData ? route.loadData(store) : null;
-    }).map(promise => {
+    const promises = matchRoutes(Routes, req.path).map(({ route, match }) => {
+        if(route.loadData){
+            return route.loadData(store);
+        }else if(route.loadDataWithMatch){
+            return route.loadDataWithMatch(store, match);
+        }}).map(promise => {
         if(promise) {
             return new Promise((resolve, reject) => {
                 promise.then(resolve).catch(resolve);
             })
         }
     });
+
 
     Promise.all(promises).then(() => {
         const context = {};
@@ -46,7 +40,7 @@ app.get('*', (req, res) => {
         if(context.notFound) {
             res.status(404);
         }
-        res.send(content);
+        res.send(content)
     });
 
 });
