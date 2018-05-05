@@ -25,7 +25,11 @@ class CategoryPage extends Component {
             const ReallySmoothScroll = require('really-smooth-scroll');
             ReallySmoothScroll.shim()
         }
-        window.scrollTo(0,0)
+        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+        if (scrollPos < 1) {
+            window.scrollTo(0,1);
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -34,7 +38,11 @@ class CategoryPage extends Component {
                 const ReallySmoothScroll = require('really-smooth-scroll');
                 ReallySmoothScroll.shim()
             }
-            window.scrollTo(0,0)
+            var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+            if (scrollPos < 1) {
+                window.scrollTo(0,1);
+            }
         }
     }
 

@@ -25,7 +25,11 @@ class BlogDetailPage extends Component {
             const ReallySmoothScroll = require('really-smooth-scroll');
             ReallySmoothScroll.shim()
         }
-        window.scrollTo(0,0)
+        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+        if (scrollPos < 1) {
+            window.scrollTo(0,1);
+        }
     }
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.slug !== this.props.match.params.slug) {
@@ -33,7 +37,11 @@ class BlogDetailPage extends Component {
                 const ReallySmoothScroll = require('really-smooth-scroll');
                 ReallySmoothScroll.shim()
             }
-            window.scrollTo(0,0)
+            var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+            if (scrollPos < 1) {
+                window.scrollTo(0,1);
+            }
         }
     }
 
