@@ -1708,7 +1708,7 @@ div.type-post .entry-content {
 	padding-bottom: 18px;
 	position: relative;
 }
-.type-post:not(.post-position) .entry-header .entry-title::before {
+/*.type-post:not(.post-position) .entry-header .entry-title::before {
 	background-color: #e1e1e1;
 	bottom: 0;
 	content: "";
@@ -1718,7 +1718,7 @@ div.type-post .entry-content {
 	left: 0;
 	right: 0;
 	width: 30px;
-}
+} */
 .type-post .entry-header .entry-title > a {
 	color: #151515;
 	text-decoration: none;

@@ -17,11 +17,27 @@ const bannerUrl4 = '/img/master-game-336.jpg';
 const bannerUrl3 = '/img/2_eoru_free_345.jpg';
 const slideImg = '/img/pixel-bet-image-slider3.jpg';
 
+
 class CategoryPage extends Component {
     componentDidMount() {
         this.props.fetchBlogs()
-        window.scrollTo(0, 0)
+        if(typeof window !== 'undefined') {
+            const ReallySmoothScroll = require('really-smooth-scroll');
+            ReallySmoothScroll.shim()
+        }
+        window.scrollTo(0,0)
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.category !== this.props.match.params.category) {
+            if(typeof window !== 'undefined') {
+                const ReallySmoothScroll = require('really-smooth-scroll');
+                ReallySmoothScroll.shim()
+            }
+            window.scrollTo(0,0)
+        }
+    }
+
     renderCategoryPost(body, slugPost, key, imageId, alt, fetchBlogsImages, title, category = 'OTHERS', author, dateCreated) {
         const textShow = body.split(' ', 15).join(' ');
         return <div key={key} className="about-author-box category-block">
