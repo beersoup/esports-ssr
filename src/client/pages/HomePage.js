@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { fetchBlogs, fetchHeroBanner } from "../actions";
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import LoadMoreButton from '../components/LoadMoreButton';
 
 
 import FetchBlogsImages from '../components/FetchBlogsImages';
@@ -16,12 +17,14 @@ const limitPostForOnePage = 9;
 
 class HomePage extends Component {
 
-  /*  constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
-            params: null
+            limit: 9
         };
-    } */
+
+        this.handleClickLoadMoreButton = this.handleClickLoadMoreButton.bind(this)
+    }
 
     componentDidMount() {
         this.props.fetchBlogs();
@@ -35,6 +38,10 @@ class HomePage extends Component {
 
     }
 
+    handleClickLoadMoreButton() {
+        console.log('Click')
+        this.setState({ limit: this.state.limit + 9 })
+    }
    /* componentDidUpdate(prevProps) {
 
       if (this.props.match.params.page !== prevProps.match.params.page) {
@@ -65,30 +72,31 @@ class HomePage extends Component {
                         categorySlug = categorySlug.toLocaleLowerCase()
                         categorySlug = categorySlug.split(' ').join('-')
 
-
-                        return <div key={i} className="col-lg-4 col-md-6 col-sm-6 post-list">
-                            <div className="type-post">
-                                <div className="entry-cover post-list-horizontal">
-                                    <div className="post-meta">
-                                        <span className="byline">by <Link to="/">{blog.fields.author}&nbsp;&nbsp;</Link></span>
-                                        <span className="post-date" style={{ display:'block', float:'left'}}><Link to="/" style={{ display:'block'}}>{dateCreated}</Link></span>
-                                    </div>
-
-                                    <Link className="link-post-img" to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImages}
-                                                 imageId={imageId}
-                                                   alt={blog.fields.title}
-                                    /></Link>
-                                    <Link to={`/category/${categorySlug}`} className="link-category-post"><span className="post-category">{category}</span></Link>
-                                    <Link to={slugPost} className="entry-content post-home">
-                                        <div className="entry-header">
-                                            <h3 className="entry-title"><div title="Blog Title">{blog.fields.title}</div></h3>
+                        if(i < this.state.limit) {
+                            return <div key={i} className="col-lg-4 col-md-6 col-sm-6 post-list">
+                                <div className="type-post">
+                                    <div className="entry-cover post-list-horizontal">
+                                        <div className="post-meta">
+                                            <span className="byline">by <Link to="/">{blog.fields.author}&nbsp;&nbsp;</Link></span>
+                                            <span className="post-date" style={{ display:'block', float:'left'}}><Link to="/" style={{ display:'block'}}>{dateCreated}</Link></span>
                                         </div>
-                                        <TextBlogTitle body={body} />
-                                        <div className="link-read-more">READ MORE</div>
-                                    </Link>
+
+                                        <Link className="link-post-img" to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImages}
+                                                                                                        imageId={imageId}
+                                                                                                        alt={blog.fields.title}
+                                        /></Link>
+                                        <Link to={`/category/${categorySlug}`} className="link-category-post"><span className="post-category">{category}</span></Link>
+                                        <Link to={slugPost} className="entry-content post-home">
+                                            <div className="entry-header">
+                                                <h3 className="entry-title"><div title="Blog Title">{blog.fields.title}</div></h3>
+                                            </div>
+                                            <TextBlogTitle body={body} />
+                                            <div className="link-read-more">READ MORE</div>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 }else {
                     return <span key={i} />
@@ -110,7 +118,7 @@ class HomePage extends Component {
         return (
             <div className="container-fluid no-left-padding no-right-padding">
                 <BannersTopHome fetchHeroBanner={this.props.state.fetchHeroBanner}/>
-                <div className="container-fluid no-left-padding no-right-padding page-content">
+                <div className="container-fluid no-left-padding no-right-padding page-content" style={{ paddingBottom:0 }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12 col-md-12 content-area">
@@ -121,9 +129,11 @@ class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid no-padding page-content" style={{ marginBottom: '2rem'}}>
+                <div className="container-fluid no-padding page-content" style={{ marginBottom: '2rem' }}>
                     {/*  <Pagination pageCount={pageCount} paramsPage={this.props.match.params.page}/> */}
                 </div>
+                {this.state.limit < this.props.state.fetchBlogsDetails.length ?
+                    <LoadMoreButton handleClickLoadMoreButton={this.handleClickLoadMoreButton}/> : null}
                 <ImageDynamic3 />
             </div>
         );
