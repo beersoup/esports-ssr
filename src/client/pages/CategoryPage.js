@@ -25,9 +25,12 @@ class CategoryPage extends Component {
             const ReallySmoothScroll = require('really-smooth-scroll');
             ReallySmoothScroll.shim()
         }
-        var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollPos = window.pageYOffset || document.body.scrollTop;
 
-        if (scrollPos < 1) {
+        console.log('window.pageYOffset', window.pageYOffset)
+        console.log('document.body.scrollTop', document.body.scrollTop)
+
+        if (scrollPos > 1) {
             window.scrollTo(0,1);
         }
     }
@@ -38,9 +41,12 @@ class CategoryPage extends Component {
                 const ReallySmoothScroll = require('really-smooth-scroll');
                 ReallySmoothScroll.shim()
             }
-            var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollPos = window.pageYOffset || document.body.scrollTop;
 
-            if (scrollPos < 1) {
+            console.log('window.pageYOffset', window.pageYOffset)
+            console.log('document.body.scrollTop', document.body.scrollTop)
+
+            if (scrollPos > 1) {
                 window.scrollTo(0,1);
             }
         }
