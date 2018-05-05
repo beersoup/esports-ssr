@@ -21,34 +21,12 @@ const slideImg = '/img/pixel-bet-image-slider3.jpg';
 class CategoryPage extends Component {
     componentDidMount() {
         this.props.fetchBlogs()
-        if(typeof window !== 'undefined') {
-            const ReallySmoothScroll = require('really-smooth-scroll');
-            ReallySmoothScroll.shim()
-        }
-        var scrollPos = window.pageYOffset || document.body.scrollTop;
-
-        console.log('window.pageYOffset', window.pageYOffset)
-        console.log('document.body.scrollTop', document.body.scrollTop)
-
-        if (scrollPos > 1) {
-            window.scrollTo(0,1);
-        }
+        window.scroll(0,1);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.category !== this.props.match.params.category) {
-            if(typeof window !== 'undefined') {
-                const ReallySmoothScroll = require('really-smooth-scroll');
-                ReallySmoothScroll.shim()
-            }
-            var scrollPos = window.pageYOffset || document.body.scrollTop;
-
-            console.log('window.pageYOffset', window.pageYOffset)
-            console.log('document.body.scrollTop', document.body.scrollTop)
-
-            if (scrollPos > 1) {
-                window.scrollTo(0,1);
-            }
+            window.scroll(0,1);
         }
     }
 

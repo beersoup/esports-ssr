@@ -21,33 +21,15 @@ const bannerUrl4 = '/img/master-game-336.jpg';
 class BlogDetailPage extends Component {
     componentDidMount() {
         this.props.fetchBlogs();
-        if(typeof window !== 'undefined') {
-            const ReallySmoothScroll = require('really-smooth-scroll');
-            ReallySmoothScroll.shim()
-        }
-        var scrollPos = window.pageYOffset || document.body.scrollTop;
+            window.scroll(0,1);
 
-        console.log('window.pageYOffset', window.pageYOffset)
-        console.log('document.body.scrollTop', document.body.scrollTop)
-
-        if (scrollPos > 1) {
-            window.scrollTo(0,1);
-        }
     }
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.slug !== this.props.match.params.slug) {
             if(typeof window !== 'undefined') {
-                const ReallySmoothScroll = require('really-smooth-scroll');
-                ReallySmoothScroll.shim()
-            }
-            var scrollPos = window.pageYOffset || document.body.scrollTop;
 
-            console.log('window.pageYOffset', window.pageYOffset)
-            console.log('document.body.scrollTop', document.body.scrollTop)
-
-            if (scrollPos > 1) {
-                window.scrollTo(0,1);
             }
+            window.scroll(0,1);
         }
     }
 

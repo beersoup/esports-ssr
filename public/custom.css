@@ -204,6 +204,7 @@ header {
 .page-item.active.disabled a {
     color: #fff;
 }
+
 @media (max-width: 1199px) {
     .post-list-wrapper>div:nth-of-type(3n+1) {
         clear:none;
