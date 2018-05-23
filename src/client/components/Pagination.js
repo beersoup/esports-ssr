@@ -9,20 +9,25 @@ class Pagination extends Component {
         let pageRender = [];
 
         for(var i = 1; i <= this.props.pageCount; i++) {
-            const classActive =  this.props.paramsPage == undefined && i == 1 || this.props.paramsPage == i
-                ? 'page-item active disabled'
-                :  'page-item'; // (this.props.paramsPage == undefined) = If its route is '/'
-            const linkToHomePage = i <= 1 ? '/' : `/page/${i}`
-            pageRender.push(<li key={i} className={classActive}><Link className="page-link" to={linkToHomePage}>{i}</Link></li>)
+
+          let classActive;
+          if(this.props.pageNoState == i) {
+              classActive = this.props.classNameActive
+          }else if(this.props.location === '/' && i === 1) {
+              classActive = this.props.classNameActiveFirst
+          }
+          else {
+              classActive = ''
+          }
+
+            const linkPage = i <= 1 ? `/pages/?pageNo=1&size=9&total=${this.props.total}` :
+                `/pages/?pageNo=${i}&size=9&total=${this.props.total}`
+            pageRender.push(<li key={i} className={`page-item ${classActive}`}><Link className="page-link" target="_self" to={linkPage}>{i}</Link></li>)
         }
         return pageRender;
     }
 
-    handlePageClick(){
-    }
-
     render() {
-
         return (
             <nav aria-label="EsportsWire Blog Pagination">
                 <ul className="pagination pagination-lg">

@@ -5,7 +5,7 @@ class MorePageHomePage extends Component {
 
     render() {
 
-        console.log('More', this.props.match.params.page == undefined)
+        console.log('More', this.props.match.params.page)
         return (
             <div>More</div>
         );

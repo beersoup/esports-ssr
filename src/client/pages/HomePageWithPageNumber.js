@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { fetchHeroBanner, fetchBlogs } from "../actions";
+import { fetchHeroBanner, fetchBlogs, fetchBlogsLimit } from "../actions";
 import moment from "moment/moment";
 import { Link } from 'react-router-dom';
 import FetchBlogsImages from '../components/FetchBlogsImages';
@@ -13,15 +13,13 @@ import queryString from "query-string";
 
 
 const limitPostForOnePage = 9;
-const limitSend = 9
 
-class HomePage extends Component {
-
+class HomePageWithPageNumber extends Component {
     constructor(props){
         super(props);
         this.state = {
-            classNameActiveFirst: '',
-            location: ''
+            classNameActive: '',
+            pageNoState: ''
         }
     }
 
@@ -29,7 +27,11 @@ class HomePage extends Component {
         this.props.fetchBlogs();
         this.props.fetchHeroBanner();
         window.scroll(0,1);
-        this.setState({ location: this.props.location.pathname, classNameActiveFirst: 'active disabled' });
+        const pageNoQuery = this.getQueryString('pageNo')
+        const sizeQuery = this.getQueryString('size')
+        const total = this.props.state.fetchBlogsDetails.length
+        this.props.fetchBlogsLimit(pageNoQuery, sizeQuery, total)
+        this.setState({ classNameActive: 'active disabled', pageNoState: pageNoQuery});
     }
     getQueryString ( field ) {
         const reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
@@ -39,8 +41,8 @@ class HomePage extends Component {
     }
 
     renderBlogItem() {
-        if(this.props.state.fetchBlogsDetails !== undefined) {
-            return this.props.state.fetchBlogsDetails.map((blog, i) => {
+        if(this.props.state.fetchBlogsDetailsLimit !== undefined) {
+            return this.props.state.fetchBlogsDetailsLimit.map((blog, i) => {
 
                 if(blog.sys.contentType.sys.id === "article") {
                     if(blog.fields.hasOwnProperty('featuredImage')) {
@@ -54,31 +56,29 @@ class HomePage extends Component {
                         categorySlug = categorySlug.toLocaleLowerCase()
                         categorySlug = categorySlug.split(' ').join('-')
 
-                        if(i < limitSend) {
-                            return <div key={i} className="col-lg-4 col-md-6 col-sm-6 post-list">
-                                <div className="type-post">
-                                    <div className="entry-cover post-list-horizontal">
-                                        <div className="post-meta">
-                                            <span className="byline">by <Link to="/">{blog.fields.author}&nbsp;&nbsp;</Link></span>
-                                            <span className="post-date" style={{ display:'block', float:'left'}}><Link to="/" style={{ display:'block'}}>{dateCreated}</Link></span>
-                                        </div>
-                                        <Link className="link-post-img" to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImages}
-                                                                                                        imageId={imageId}
-                                                                                                        alt={blog.fields.title}
-                                        /></Link>
-
-                                        <Link to={`/category/${categorySlug}`} className="link-category-post"><span className="post-category">{category}</span></Link>
-                                        <Link to={slugPost} className="entry-content post-home">
-                                            <div className="entry-header">
-                                                <h3 className="entry-title"><div title="Blog Title">{blog.fields.title}</div></h3>
-                                            </div>
-                                            <TextBlogTitle body={body} />
-                                            <div className="link-read-more">READ MORE</div>
-                                        </Link>
+                        return <div key={i} className="col-lg-4 col-md-6 col-sm-6 post-list">
+                            <div className="type-post">
+                                <div className="entry-cover post-list-horizontal">
+                                    <div className="post-meta">
+                                        <span className="byline">by <Link to="/">{blog.fields.author}&nbsp;&nbsp;</Link></span>
+                                        <span className="post-date" style={{ display:'block', float:'left'}}><Link to="/" style={{ display:'block'}}>{dateCreated}</Link></span>
                                     </div>
+                                    <Link className="link-post-img" to={slugPost}><FetchBlogsImages fetchBlogsImages={this.props.state.fetchBlogsImagesLimit}
+                                                                                                    imageId={imageId}
+                                                                                                    alt={blog.fields.title}
+                                    /></Link>
+
+                                    <Link to={`/category/${categorySlug}`} className="link-category-post"><span className="post-category">{category}</span></Link>
+                                    <Link to={slugPost} className="entry-content post-home">
+                                        <div className="entry-header">
+                                            <h3 className="entry-title"><div title="Blog Title">{blog.fields.title}</div></h3>
+                                        </div>
+                                        <TextBlogTitle body={body} />
+                                        <div className="link-read-more">READ MORE</div>
+                                    </Link>
                                 </div>
                             </div>
-                        }
+                        </div>
                     }
                 }else {
                     return <span key={i} />
@@ -91,15 +91,7 @@ class HomePage extends Component {
 
     }
 
-    renderBlogLimit() {
-            return this.props.state.fetchBlogsDetailsLimit.map((limit, i) => {
-
-                return <div key={i}>{limit.fields.title}</div>
-
-            })
-    }
     render() {
-
         let pageCount;
         if(this.props.state.fetchBlogsDetails.length !== undefined) {
             pageCount = Math.ceil(this.props.state.fetchBlogsDetails.length / limitPostForOnePage);
@@ -113,8 +105,7 @@ class HomePage extends Component {
                         <div className="row">
                             <div className="col-lg-12 col-md-12 content-area">
                                 <div className="row post-list-wrapper">
-                                     {this.renderBlogItem()}
-                                    {this.renderBlogLimit()}
+                                    {this.renderBlogItem()}
                                 </div>
                             </div>
                         </div>
@@ -122,9 +113,10 @@ class HomePage extends Component {
                 </div>
                 <div className="container-fluid no-padding page-content" style={{ marginBottom: '2rem' }}>
                     <Pagination pageCount={pageCount}
-                                location={this.state.location}
-                                classNameActiveFirst={this.state.classNameActiveFirst}
+                                pageNoQuery={this.getQueryString('pageNo')}
                                 total={this.props.state.fetchBlogsDetails.length}
+                                classNameActive={this.state.classNameActive}
+                                pageNoState={this.state.pageNoState}
                     />
                 </div>
                 <ImageDynamic3 />
@@ -143,17 +135,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchHeroBanner:fetchHeroBanner,
-        fetchBlogs: fetchBlogs
+        fetchBlogs: fetchBlogs,
+        fetchBlogsLimit: fetchBlogsLimit
     }, dispatch)
 }
 
 function loadData(store, match, query) {
     return Promise.all([
+        store.dispatch( fetchBlogsLimit(query.skip, query.limit, query.total) ),
         store.dispatch( fetchBlogs() ),
         store.dispatch( fetchHeroBanner() )
     ]);
 }
 export default {
-    component: connect(mapStateToProps, mapDispatchToProps)(HomePage),
+    component: connect(mapStateToProps, mapDispatchToProps)(HomePageWithPageNumber),
     loadData: loadData
 };

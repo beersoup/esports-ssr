@@ -226,6 +226,10 @@ header {
     -ms-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
+.btn-pos:visited {
+    background: transparent;
+    color: #000;
+}
 .btn-pos:hover {
     background: #000;
     color: #fff;

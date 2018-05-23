@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import CallActionButton from './CallActionButton';
 
+
 import {TRACK_URL} from '../config';
 
 class BannersTopHome extends Component {
+
     render() {
         let bannerButton1, bannerText1, bannerTitle1, imageId1
         let bannerButton2, bannerText2, bannerTitle2, imageId2

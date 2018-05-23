@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "moment": "^2.22.1",
+    "query-string": "^6.1.0",
     "react-markdown-renderer": "^1.4.0",
     "react-media": "^1.8.0",
     "react-paginate": "^5.2.2"
