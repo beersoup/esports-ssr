@@ -95,10 +95,12 @@ a, a:link, a:visited, a:hover, a:active {
 .banner2 {
     height: 248px;
     object-fit: cover;
+    width:100%;
 }
 .banner3 {
     height: 248px;
     object-fit: cover;
+    width:100%;
 }
 .category-block {
     padding-bottom: 40px;
